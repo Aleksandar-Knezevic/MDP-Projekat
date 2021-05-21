@@ -13,7 +13,7 @@
       <Button contentDisplay="CENTER" layoutX="113.0" layoutY="23.0" mnemonicParsing="false" text="Red voznje" />
       <Button contentDisplay="CENTER" layoutX="215.0" layoutY="23.0" mnemonicParsing="false" text="Evidentiraj prolaz" />
       <Button contentDisplay="CENTER" layoutX="353.0" layoutY="23.0" mnemonicParsing="false" text="Posalji obavjestenje" />
-      <Button layoutX="491.0" layoutY="23.0" mnemonicParsing="false" text="Posalji izvjestaj" />
+      <Button layoutX="491.0" layoutY="23.0" mnemonicParsing="false" onAction="#sendReport" text="Posalji izvjestaj" />
       <ComboBox fx:id="gradoviComboBox" layoutX="50.0" layoutY="175.0" prefWidth="150.0" />
       <ComboBox layoutX="225.0" layoutY="175.0" prefWidth="150.0" />
       <Circle fill="#ff1f1f" layoutX="37.0" layoutY="107.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />

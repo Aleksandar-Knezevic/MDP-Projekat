@@ -11,10 +11,14 @@ import java.util.ResourceBundle;
 import org.unibl.etf.mdp.zsmdp.message.MessageAcceptThread;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class MainWindowController implements Initializable{
 	
@@ -45,6 +49,32 @@ public class MainWindowController implements Initializable{
 			pw.close();
 		}
 		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void sendReport()
+	{
+		try
+		{
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ReportWindow.fxml"));
+			Parent root = loader.load(); 
+			ReportWindowController rwc =  loader.<ReportWindowController>getController();
+			
+			rwc.station = grad;
+			rwc.user = korisnik;
+			rwc.init();
+			
+			
+			Scene scene = new Scene(root,350,175);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle("Report");
+			stage.show();
+		}
+		catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
