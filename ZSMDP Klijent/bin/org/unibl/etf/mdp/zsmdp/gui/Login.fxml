@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="435.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.unibl.etf.mdp.zsmdp.gui.LoginController">
+   <children>
+      <Button fx:id="loginButton" layoutX="194.0" layoutY="191.0" mnemonicParsing="false" onAction="#LoginButton" text="Prijava" />
+      <TextField fx:id="usernameField" alignment="CENTER" layoutX="145.0" layoutY="108.0" promptText="ime" />
+      <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="145.0" layoutY="155.0" promptText="lozinka" />
+      <ComboBox fx:id="loginGradoviBox" layoutX="145.0" layoutY="61.0" prefWidth="150.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="162.0" layoutY="29.0" prefHeight="17.0" prefWidth="111.0" text="Izaberite grad" />
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="162.0" layoutY="241.0" prefHeight="17.0" prefWidth="111.0" text="Greska" textFill="RED" visible="false" />
+   </children>
+</AnchorPane>

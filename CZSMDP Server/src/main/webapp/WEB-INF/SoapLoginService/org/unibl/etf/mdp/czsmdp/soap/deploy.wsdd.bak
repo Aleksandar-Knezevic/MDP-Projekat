@@ -1,0 +1,36 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from SoapLoginService WSDL service -->
+
+  <service name="SoapLogin" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://soap.czsmdp.mdp.etf.unibl.org"/>
+      <parameter name="wsdlServiceElement" value="SoapLoginService"/>
+      <parameter name="schemaQualified" value="http://soap.czsmdp.mdp.etf.unibl.org"/>
+      <parameter name="wsdlServicePort" value="SoapLogin"/>
+      <parameter name="className" value="org.unibl.etf.mdp.czsmdp.soap.SoapLoginSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="SoapLogin"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="login" qname="operNS:login" xmlns:operNS="http://soap.czsmdp.mdp.etf.unibl.org" returnQName="retNS:loginReturn" xmlns:retNS="http://soap.czsmdp.mdp.etf.unibl.org" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:username" xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:password" xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:station" xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getUsers" qname="operNS:getUsers" xmlns:operNS="http://soap.czsmdp.mdp.etf.unibl.org" returnQName="retNS:getUsersReturn" xmlns:retNS="http://soap.czsmdp.mdp.etf.unibl.org" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:station" xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getStations" qname="operNS:getStations" xmlns:operNS="http://soap.czsmdp.mdp.etf.unibl.org" returnQName="retNS:getStationsReturn" xmlns:retNS="http://soap.czsmdp.mdp.etf.unibl.org" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <parameter name="allowedMethods" value="getUsers getStations login"/>
+
+  </service>
+</deployment>
