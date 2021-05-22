@@ -1,7 +1,8 @@
 package org.unibl.etf.mdp.zsmdp.message;
 
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,10 +21,12 @@ public class MessageAcceptThread extends Thread
 	{
 		try {
 			
+			//SSLServerSocketFactory ssf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+			//ss = ssf.createServerSocket(cityPort);
 			ss = new ServerSocket(cityPort);
 			mc = ms;
 			System.out.println("Pokrenut na portu " + cityPort);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -36,7 +39,9 @@ public class MessageAcceptThread extends Thread
 		while(true)
 		{
 			try {
+				//SSLSocket socket = (SSLSocket)ss.accept();
 				Socket socket = ss.accept();
+				System.out.println("Connection accepted");
 				BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String type = br.readLine();
 				if("MSG".equals(type))
@@ -49,7 +54,16 @@ public class MessageAcceptThread extends Thread
 				}
 				else if("FILE".equals(type))
 				{
-					
+					String user = br.readLine();
+					String filename = br.readLine();
+					byte[] fileBytes = br.readLine().getBytes();
+					FileOutputStream fos = new FileOutputStream(new File(filename));
+					fos.write(fileBytes);
+					Platform.runLater(() ->
+					{
+						mc.messageArea.appendText(user + ": je poslao fajl " + filename + "\n");
+					});
+					fos.close();
 				}
 				else
 				{
