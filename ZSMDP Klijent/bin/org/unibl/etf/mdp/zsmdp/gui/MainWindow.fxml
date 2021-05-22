@@ -10,7 +10,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.unibl.etf.mdp.zsmdp.gui.MainWindowController">
    <children>
       <Button contentDisplay="CENTER" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Odjava" />
-      <Button contentDisplay="CENTER" layoutX="113.0" layoutY="23.0" mnemonicParsing="false" text="Red voznje" />
+      <Button contentDisplay="CENTER" layoutX="113.0" layoutY="23.0" mnemonicParsing="false" onAction="#displayTimetable" text="Red voznje" />
       <Button contentDisplay="CENTER" layoutX="215.0" layoutY="23.0" mnemonicParsing="false" text="Evidentiraj prolaz" />
       <Button contentDisplay="CENTER" layoutX="353.0" layoutY="23.0" mnemonicParsing="false" text="Posalji obavjestenje" />
       <Button layoutX="491.0" layoutY="23.0" mnemonicParsing="false" onAction="#sendReport" text="Posalji izvjestaj" />

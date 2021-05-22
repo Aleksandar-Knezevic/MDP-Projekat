@@ -17,8 +17,8 @@ import com.google.gson.Gson;
 public class AZSRMI implements AZSRMIinterface{
 
 	public static void main(String[] args) throws Exception{
-		
-		System.setProperty("java.security.policy", "policyfile.txt");
+		File file = new File("policyfile.txt");
+		System.setProperty("java.security.policy", file.getAbsolutePath());
 		if(System.getSecurityManager()==null)
 			System.setSecurityManager(new SecurityManager());
 		AZSRMI server = new AZSRMI();

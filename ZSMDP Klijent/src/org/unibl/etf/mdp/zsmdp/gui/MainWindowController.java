@@ -81,6 +81,29 @@ public class MainWindowController implements Initializable{
 	
 	
 	
+	public void displayTimetable()
+	{
+		try
+		{
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("TimetableWindow.fxml"));
+			Parent root = loader.load(); 
+			
+			
+			Scene scene = new Scene(root,420,550);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle("Timetable");
+			stage.show();
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+		
+	
+	
+	
 	
 	
 	

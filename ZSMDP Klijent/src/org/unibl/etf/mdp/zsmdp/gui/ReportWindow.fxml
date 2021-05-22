@@ -10,7 +10,7 @@
       <ComboBox fx:id="filesComboBox" layoutX="14.0" layoutY="14.0" prefWidth="150.0" />
       <Button layoutX="192.0" layoutY="14.0" mnemonicParsing="false" onAction="#downloadButton" prefHeight="25.0" prefWidth="96.0" text="Preuzmi" />
       <Button layoutX="14.0" layoutY="85.0" mnemonicParsing="false" onAction="#chooseFileButton" text="Izaberi fajl" />
-      <Label layoutX="113.0" layoutY="89.0" prefHeight="17.0" prefWidth="133.0" />
+      <Label fx:id="chosenFileLabel" layoutX="113.0" layoutY="89.0" prefHeight="59.0" prefWidth="220.0" wrapText="true" />
       <Button layoutX="14.0" layoutY="124.0" mnemonicParsing="false" onAction="#sendFileButton" prefHeight="25.0" prefWidth="71.0" text="Posalji" />
    </children>
 </AnchorPane>
