@@ -13,12 +13,12 @@
       <Button contentDisplay="CENTER" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Odjava" />
       <Button contentDisplay="CENTER" layoutX="113.0" layoutY="23.0" mnemonicParsing="false" onAction="#displayTimetable" text="Red voznje" />
       <Button contentDisplay="CENTER" layoutX="215.0" layoutY="23.0" mnemonicParsing="false" onAction="#recordTransit" text="Evidentiraj prolaz" />
-      <Button contentDisplay="CENTER" layoutX="353.0" layoutY="23.0" mnemonicParsing="false" text="Posalji obavjestenje" />
+      <Button contentDisplay="CENTER" layoutX="353.0" layoutY="23.0" mnemonicParsing="false" onAction="#sendNotificationButton" text="Posalji obavjestenje" />
       <Button layoutX="491.0" layoutY="23.0" mnemonicParsing="false" onAction="#sendReport" text="Posalji izvjestaj" />
       <ComboBox fx:id="gradoviComboBox" layoutX="50.0" layoutY="175.0" prefWidth="150.0" />
       <ComboBox layoutX="225.0" layoutY="175.0" prefWidth="150.0" />
       <Circle fill="#ff1f1f" layoutX="37.0" layoutY="107.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
-      <TextArea layoutX="55.0" layoutY="70.0" prefHeight="74.0" prefWidth="320.0" />
+      <TextArea fx:id="notificationArea" layoutX="55.0" layoutY="70.0" prefHeight="74.0" prefWidth="320.0" />
       <TextField fx:id="messageBox" layoutX="413.0" layoutY="175.0" />
       <Button layoutX="413.0" layoutY="286.0" mnemonicParsing="false" onAction="#chooseFileButton" text="Izaberi fajl" />
       <Button layoutX="413.0" layoutY="212.0" mnemonicParsing="false" onAction="#SendMessageButton" text="Posalji" />

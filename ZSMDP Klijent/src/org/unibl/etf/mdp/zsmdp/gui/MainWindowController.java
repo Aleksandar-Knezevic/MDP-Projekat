@@ -3,6 +3,7 @@ package org.unibl.etf.mdp.zsmdp.gui;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import org.unibl.etf.mdp.zsmdp.message.MessageAcceptThread;
+import org.unibl.etf.mdp.zsmdp.message.MulticastMessageAcceptThread;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,6 +42,8 @@ public class MainWindowController implements Initializable{
 	public ComboBox<String> gradoviComboBox;
 	@FXML
 	public Label chosenFileLabel;
+	@FXML
+	public TextArea notificationArea;
 	
 	
 	public void SendMessageButton()
@@ -169,15 +173,22 @@ public class MainWindowController implements Initializable{
 			chosenFileLabel.setText("");
 			int destPort = locationPortMapping.get(gradoviComboBox.getValue());
 			Socket socket =  new Socket("127.0.0.1", destPort);
-			
-			System.out.println("Connection established with port " + destPort);
 			PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
 			pw.println("FILE");
 			pw.println(korisnik);
 			pw.println(file.getName());
-			pw.println(fileArray.toString());
 			pw.close();
 			socket.close();
+			Thread.sleep(100);
+			
+			System.out.println("Connection established with port " + destPort);
+			
+			socket = new Socket("127.0.0.1", destPort*2);
+			OutputStream out = socket.getOutputStream();
+			out.write(fileArray, 0, fileArray.length);
+			out.close();
+			socket.close();
+			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -188,7 +199,30 @@ public class MainWindowController implements Initializable{
 	
 	
 	
-	
+	public void sendNotificationButton()
+	{
+		try
+		{
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("NotificationWindow.fxml"));
+			Parent root = loader.load(); 
+			
+			NotificationWindowController nwc = loader.<NotificationWindowController>getController();
+			
+			//twc.init();
+			nwc.station = grad;
+			
+			
+			Scene scene = new Scene(root,360,165);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle("Send notification");
+			stage.show();
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
 	
 	
 	
@@ -218,6 +252,7 @@ public class MainWindowController implements Initializable{
 	public void init()
 	{
 		new MessageAcceptThread(this, port);
+		new MulticastMessageAcceptThread(this);
 	}
 
 }
