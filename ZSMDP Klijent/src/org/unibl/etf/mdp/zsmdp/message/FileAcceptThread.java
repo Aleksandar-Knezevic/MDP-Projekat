@@ -31,8 +31,7 @@ public class FileAcceptThread extends Thread
 	
 	public void run()
 	{
-		while(true)
-		{
+		
 			try
 			{
 				Socket socket = ss.accept();
@@ -42,12 +41,16 @@ public class FileAcceptThread extends Thread
 				FileOutputStream fos = new FileOutputStream(new File(name));
 				while((count = in.read(bytes))>0)
 					fos.write(bytes, 0, bytes.length);
+				in.close();
+				fos.close();
+				socket.close();
+				ss.close();
 			}
 			catch (Exception e) {
 				e.printStackTrace();
 				// TODO: handle exception
 			}
-		}
+		
 			
 	}
 }

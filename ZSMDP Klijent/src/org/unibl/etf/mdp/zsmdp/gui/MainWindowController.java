@@ -179,15 +179,16 @@ public class MainWindowController implements Initializable{
 			pw.println(file.getName());
 			pw.close();
 			socket.close();
+			fis.close();
 			Thread.sleep(100);
 			
 			System.out.println("Connection established with port " + destPort);
 			
-			socket = new Socket("127.0.0.1", destPort*2);
-			OutputStream out = socket.getOutputStream();
+			Socket socket1 = new Socket("127.0.0.1", destPort*2);
+			OutputStream out = socket1.getOutputStream();
 			out.write(fileArray, 0, fileArray.length);
 			out.close();
-			socket.close();
+			socket1.close();
 			
 		}
 		catch (Exception e) {

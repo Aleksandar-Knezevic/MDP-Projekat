@@ -59,7 +59,7 @@ public class MessageAcceptThread extends Thread
 					new FileAcceptThread(port, fileName);
 					Platform.runLater(() ->
 					{
-						mc.messageArea.appendText(user + " je poslao fajl: " + fileName);
+						mc.messageArea.appendText(user + " je poslao fajl: " + fileName+"\n");
 					});
 				}
 				
