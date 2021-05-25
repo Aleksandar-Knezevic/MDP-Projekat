@@ -253,7 +253,7 @@ public class MainWindowController implements Initializable{
 	public void init()
 	{
 		new MessageAcceptThread(this, port);
-		new MulticastMessageAcceptThread(this);
+		new MulticastMessageAcceptThread(this, grad);
 	}
 
 }

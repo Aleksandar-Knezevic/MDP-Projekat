@@ -7,8 +7,8 @@
   <ns1:parameter name="dotNetSoapEncFix" value="true"/>
   <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
   <ns1:parameter name="sendXMLDeclaration" value="true"/>
-  <ns1:parameter name="sendXsiTypes" value="true"/>
   <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <ns1:parameter name="sendXsiTypes" value="true"/>
   <ns1:requestFlow>
    <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
     <ns1:parameter name="scope" value="session"/>
@@ -42,7 +42,12 @@
    <ns1:parameter qname="ns2:station" type="xsd:string"/>
   </ns1:operation>
   <ns1:operation name="getStations" qname="ns3:getStations" returnQName="ns3:getStationsReturn" returnType="xsd:string" soapAction="" xmlns:ns3="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-  <ns1:parameter name="allowedMethods" value="getUsers getStations login"/>
+  <ns1:operation name="addUser" qname="ns4:addUser" soapAction="" xmlns:ns4="http://soap.czsmdp.mdp.etf.unibl.org">
+   <ns1:parameter qname="ns4:username" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns4:password" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns4:station" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="getUsers addUser getStations login"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
   <ns1:parameter name="wsdlPortType" value="SoapLogin"/>
   <ns1:parameter name="className" value="org.unibl.etf.mdp.czsmdp.soap.SoapLogin"/>

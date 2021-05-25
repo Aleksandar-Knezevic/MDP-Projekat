@@ -1,14 +1,18 @@
 package org.unibl.etf.mdp.czsmdp.soap;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.util.ArrayList;
 
 public class SoapLogin implements Serializable
 {
-	
+
 	
 	
 	public String getStations()
@@ -29,16 +33,28 @@ public class SoapLogin implements Serializable
 		
 	}
 	
+	
+	
+	
+	
+	
+	
 	public boolean login(String username, String password, String station)
 	{
 		try
-		{
-			List<String> accounts = Files.readAllLines(Paths.get(new File("location-info"+File.separator+station).toURI()));
+		{			
+			File file = new File("." +File.separator+"location-info"+ File.separator + station);
+			XMLDecoder decoder = new XMLDecoder(new FileInputStream(file));
+			ArrayList<User> accounts = (ArrayList<User>) decoder.readObject();
+			decoder.close();
+			
 			for(int i=0;i<accounts.size();i++)
 			{
-				String[] comp = accounts.get(i).split("#");
-				if(username.equals(comp[0].trim())&&password.equals(comp[1].trim()))
+				String hashed = hash(password);
+				User u = accounts.get(i);
+				if(u.getUsername().equals(username) && u.getPassword().equals(hashed))
 					return true;
+				
 			}
 			return false;
 		}
@@ -56,12 +72,15 @@ public class SoapLogin implements Serializable
 	{
 		try
 		{
-			String result = "";
-			List<String> accounts = Files.readAllLines(Paths.get(new File("location-info"+File.separator+station).toURI()));
+			File file = new File("." +File.separator+"location-info"+ File.separator + station);
+			XMLDecoder decoder = new XMLDecoder(new FileInputStream(file));
+			ArrayList<User> accounts = (ArrayList<User>) decoder.readObject();
+			decoder.close();
+			String result="";
 			for(int i=0;i<accounts.size();i++)
 			{
-				String[] comp = accounts.get(i).split("#");
-				result+=comp[0]+"#";
+				
+				result+=accounts.get(i).username+"#";
 			}
 			return result;
 		}
@@ -72,5 +91,95 @@ public class SoapLogin implements Serializable
 		}
 		
 	}
+	
+	
+	
+	public void addUser(String username, String password, String station)
+	{
+		try
+		{
+			File file = new File("." +File.separator+"location-info"+ File.separator + station);
+			XMLDecoder decoder = new XMLDecoder(new FileInputStream(file));
+			ArrayList<User> accounts = (ArrayList<User>) decoder.readObject();
+			decoder.close();
+			User u = new User( station.split("#")[0],username, hash(password));
+			accounts.add(u);
+			XMLEncoder encoder = new XMLEncoder(new FileOutputStream(file));
+			encoder.writeObject(accounts);
+			encoder.close();
+		
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteUser(String username, String station)
+	{
+		try
+		{
+			File file = new File("." +File.separator+"location-info"+ File.separator + station);
+			XMLDecoder decoder = new XMLDecoder(new FileInputStream(file));
+			ArrayList<User> accounts = (ArrayList<User>) decoder.readObject();
+			decoder.close();
+			for(int i=0;i<accounts.size();i++)
+			{
+				User u = accounts.get(i);
+				if(u.username.equals(username));
+					accounts.remove(i);
+			}
+			
+			
+			XMLEncoder encoder = new XMLEncoder(new FileOutputStream(file));
+			encoder.writeObject(accounts);
+			encoder.close();
+		
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private String hash(String password) throws Exception
+	{
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+		return bytesToHex(encodedHash);
+		
+	}
+	
+	private String bytesToHex(byte[] hash) {
+	    StringBuilder hexString = new StringBuilder(2 * hash.length);
+	    for (int i = 0; i < hash.length; i++) {
+	        String hex = Integer.toHexString(0xff & hash[i]);
+	        if(hex.length() == 1) {
+	            hexString.append('0');
+	        }
+	        hexString.append(hex);
+	    }
+	    return hexString.toString();
+	}
+	
+	
+
 
 }

@@ -30,7 +30,12 @@
       </operation>
       <operation name="getStations" qname="operNS:getStations" xmlns:operNS="http://soap.czsmdp.mdp.etf.unibl.org" returnQName="retNS:getStationsReturn" xmlns:retNS="http://soap.czsmdp.mdp.etf.unibl.org" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
       </operation>
-      <parameter name="allowedMethods" value="getUsers getStations login"/>
+      <operation name="addUser" qname="operNS:addUser" xmlns:operNS="http://soap.czsmdp.mdp.etf.unibl.org" soapAction="" >
+        <parameter qname="pns:username" xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:password" xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:station" xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="getUsers addUser getStations login"/>
 
   </service>
 </deployment>

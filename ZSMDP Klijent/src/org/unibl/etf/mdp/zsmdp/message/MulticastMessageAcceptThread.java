@@ -15,12 +15,14 @@ public class MulticastMessageAcceptThread extends Thread
 	int port = 20000;
 	String host = "224.0.0.11";
 	MulticastSocket socket;
+	String station;
 	
-	public MulticastMessageAcceptThread(MainWindowController contr)
+	public MulticastMessageAcceptThread(MainWindowController contr, String station)
 	{
 		mwc = contr;
 		try
 		{
+			this.station=station;
 			socket = new MulticastSocket(port);
 			InetAddress address = InetAddress.getByName(host);
 			socket.joinGroup(address);
@@ -45,10 +47,11 @@ public class MulticastMessageAcceptThread extends Thread
 				DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 				socket.receive(packet);
 				String received = new String(packet.getData(), 0, packet.getLength());
-				Platform.runLater(()->
-				{
-					mwc.notificationArea.appendText(received+"\n");
-				});
+				if(!station.equals(received.split(":")[0]))
+					Platform.runLater(()->
+					{
+						mwc.notificationArea.appendText(received+"\n");
+					});
 			}
 			catch (Exception e) {
 				e.printStackTrace();

@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/org/unibl/etf/mdp/czsmdp/soap/SoapLogin.java=UTF-8
+encoding//src/org/unibl/etf/mdp/czsmdp/soap/SoapLoginService.java=UTF-8
+encoding//src/org/unibl/etf/mdp/czsmdp/soap/SoapLoginServiceLocator.java=UTF-8
+encoding//src/org/unibl/etf/mdp/czsmdp/soap/SoapLoginSoapBindingStub.java=UTF-8

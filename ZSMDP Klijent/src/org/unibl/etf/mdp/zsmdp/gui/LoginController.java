@@ -54,7 +54,7 @@ public class LoginController implements Initializable {
 			SoapLoginServiceLocator locator = new SoapLoginServiceLocator();
 			SoapLogin login = locator.getSoapLogin();
 			
-			String station = grad+"#"+locationPortMapping.get(grad);
+			String station = grad+"#"+locationPortMapping.get(grad)+".xml";
 			
 			if(login.login(username, password, station))
 			{
@@ -103,11 +103,12 @@ public class LoginController implements Initializable {
 		try {
 		SoapLogin login = locator.getSoapLogin();
 		String allLocations = login.getStations();
+		//System.out.println(allLocations);
 		String[] portLocations = allLocations.split("@");
 		for(int i=0;i<portLocations.length;i++)
 		{
 			String[] split = portLocations[i].split("#");
-			locationPortMapping.put(split[0], Integer.parseInt(split[1]));
+			locationPortMapping.put(split[0], Integer.parseInt(split[1].split("\\.")[0]));
 		}
 		
 		} catch (Exception e) {
