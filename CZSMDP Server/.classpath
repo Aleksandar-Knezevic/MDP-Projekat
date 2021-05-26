@@ -53,5 +53,8 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/wsdl4j.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/yasson-1.0.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-pool2-2.4.3.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jedis-2.9.0.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/gson-2.8.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -56,6 +56,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <element name="addUserResponse">
     <complexType/>
    </element>
+   <element name="deleteUser">
+    <complexType>
+     <sequence>
+      <element name="username" type="xsd:string"/>
+      <element name="station" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteUserResponse">
+    <complexType/>
+   </element>
   </schema>
  </wsdl:types>
 
@@ -70,6 +81,14 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <wsdl:message name="getStationsResponse">
 
       <wsdl:part element="impl:getStationsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteUserRequest">
+
+      <wsdl:part element="impl:deleteUser" name="parameters">
 
       </wsdl:part>
 
@@ -102,6 +121,14 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <wsdl:message name="getUsersResponse">
 
       <wsdl:part element="impl:getUsersResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteUserResponse">
+
+      <wsdl:part element="impl:deleteUserResponse" name="parameters">
 
       </wsdl:part>
 
@@ -168,6 +195,18 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
        </wsdl:input>
 
          <wsdl:output message="impl:addUserResponse" name="addUserResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteUser">
+
+         <wsdl:input message="impl:deleteUserRequest" name="deleteUserRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:deleteUserResponse" name="deleteUserResponse">
 
        </wsdl:output>
 
@@ -244,6 +283,24 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          </wsdl:input>
 
          <wsdl:output name="addUserResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteUserRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteUserResponse">
 
             <wsdlsoap:body use="literal"/>
 

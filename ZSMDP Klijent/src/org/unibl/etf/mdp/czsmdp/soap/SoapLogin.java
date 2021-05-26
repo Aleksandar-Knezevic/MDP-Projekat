@@ -12,4 +12,5 @@ public interface SoapLogin extends java.rmi.Remote {
     public java.lang.String getUsers(java.lang.String station) throws java.rmi.RemoteException;
     public java.lang.String getStations() throws java.rmi.RemoteException;
     public void addUser(java.lang.String username, java.lang.String password, java.lang.String station) throws java.rmi.RemoteException;
+    public void deleteUser(java.lang.String username, java.lang.String station) throws java.rmi.RemoteException;
 }

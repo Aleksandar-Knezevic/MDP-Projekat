@@ -25,7 +25,11 @@
         <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
         <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:station" type="tns:string"/>
       </operation>
-      <parameter name="allowedMethods" value="getUsers addUser getStations login"/>
+      <operation xmlns:operNS="http://soap.czsmdp.mdp.etf.unibl.org" name="deleteUser" qname="operNS:deleteUser" soapAction="">
+        <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:username" type="tns:string"/>
+        <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:station" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="getUsers addUser deleteUser getStations login"/>
 
   </service>
 </deployment>

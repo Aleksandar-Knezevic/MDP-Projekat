@@ -1,4 +1,4 @@
-package org.unibl.etf.mdp.czsmdp.rest;
+package org.unibl.etf.mdp.czsmdpclient.gui;
 
 import java.util.HashMap;
 

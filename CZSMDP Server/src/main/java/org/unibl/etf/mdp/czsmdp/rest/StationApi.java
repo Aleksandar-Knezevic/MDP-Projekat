@@ -4,6 +4,7 @@ package org.unibl.etf.mdp.czsmdp.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -36,10 +37,30 @@ public class StationApi {
 	}
 	
 	@POST
-	@Path("/{city}")
+	@Path("/city")
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean recordTransit(@PathParam("city") String city)
 	{
 		return true;
 	}
+	
+	
+	
+	@POST
+	@Path("/admin/add")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void addTrain(Linija linija)
+	{
+		System.out.println("Nesto doslo");
+		LinijaRedisServis.add(linija);
+	}
+	
+	@GET
+	@Path("/admin/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Linija> getAllAdmin()
+	{
+		return LinijaRedisServis.getAllAdmin();
+	}
+	
 }

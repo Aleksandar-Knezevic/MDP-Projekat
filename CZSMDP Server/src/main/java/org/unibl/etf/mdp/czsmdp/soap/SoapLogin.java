@@ -102,7 +102,7 @@ public class SoapLogin implements Serializable
 			XMLDecoder decoder = new XMLDecoder(new FileInputStream(file));
 			ArrayList<User> accounts = (ArrayList<User>) decoder.readObject();
 			decoder.close();
-			User u = new User( station.split("#")[0],username, hash(password));
+			User u = new User(station.split("#")[0],username, hash(password));
 			accounts.add(u);
 			XMLEncoder encoder = new XMLEncoder(new FileOutputStream(file));
 			encoder.writeObject(accounts);
@@ -126,8 +126,12 @@ public class SoapLogin implements Serializable
 			for(int i=0;i<accounts.size();i++)
 			{
 				User u = accounts.get(i);
-				if(u.username.equals(username));
+				if(u.username.equals(username))
+				{
 					accounts.remove(i);
+					break;
+				}
+					
 			}
 			
 			

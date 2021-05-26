@@ -68,5 +68,11 @@ public class SoapLoginProxy implements org.unibl.etf.mdp.czsmdp.soap.SoapLogin {
     soapLogin.addUser(username, password, station);
   }
   
+  public void deleteUser(java.lang.String username, java.lang.String station) throws java.rmi.RemoteException{
+    if (soapLogin == null)
+      _initSoapLoginProxy();
+    soapLogin.deleteUser(username, station);
+  }
+  
   
 }
