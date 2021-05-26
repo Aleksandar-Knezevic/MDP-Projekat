@@ -28,6 +28,7 @@ public class LinijaRedisServis {
 			{
 				System.out.println("Linija dodata");
 				jedis.set(linija.nazivLinije, gson.toJson(linija));
+				jedis.save();
 			}
 		}
 		catch (Exception e) {
@@ -53,6 +54,20 @@ public class LinijaRedisServis {
 			e.printStackTrace();
 			// TODO: handle exception
 			return null;
+		}
+	}
+	
+	
+	public static void delete(String linija)
+	{
+		try(Jedis jedis = jedisPool.getResource())
+		{
+			jedis.del(linija);
+			jedis.save();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
 		}
 	}
 	
