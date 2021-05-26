@@ -9,7 +9,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 import org.json.JSONArray;
@@ -17,15 +16,15 @@ import org.json.JSONArray;
 import com.google.gson.Gson;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 
-public class TimetableWindowController implements Initializable {
+public class TimetableWindowController {
 
 	String station;
+	List<Linija> linije;
 	
 	
 	@FXML
@@ -38,16 +37,15 @@ public class TimetableWindowController implements Initializable {
 	
 	
 	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void init() {
 		try
 		{
-		InputStream is = new URL("http://localhost:8080/CZSMDPServer/api/rest/stations/"+station).openStream();
+		InputStream is = new URL("http://localhost:8080/CZSMDPServer/api/rest/stations/"+station.replace(" ", "%20")).openStream();
 		BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
 		String jsonText = readAll(rd);
 		JSONArray json = new JSONArray(jsonText);
 		Gson gson = new Gson();
-		List<Linija> linije = new ArrayList<Linija>();
+		linije = new ArrayList<Linija>();
 		for(int i=0;i<json.length();i++)
 			linije.add(gson.fromJson(json.get(i).toString(), Linija.class));
 

@@ -3,6 +3,7 @@ package org.unibl.etf.mdp.czsmdp.rest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
@@ -30,6 +31,19 @@ public class LinijaRedisServis {
 				jedis.set(linija.nazivLinije, gson.toJson(linija));
 				jedis.save();
 			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+	}
+	
+	public static void update(Linija linija)
+	{
+		try(Jedis jedis = jedisPool.getResource())
+		{
+				jedis.set(linija.nazivLinije, gson.toJson(linija));
+				jedis.save();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -69,6 +83,12 @@ public class LinijaRedisServis {
 			e.printStackTrace();
 			// TODO: handle exception
 		}
+	}
+	
+	public static List<Linija> getByStation(String nazivLinije)
+	{
+		
+		return getAllAdmin().stream().filter(e -> e.vozProlazakMapa.keySet().contains(nazivLinije)).collect(Collectors.toList());
 	}
 	
 }

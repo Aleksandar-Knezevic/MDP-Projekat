@@ -104,7 +104,7 @@ public class MainWindowController implements Initializable{
 			TimetableWindowController twc = loader.<TimetableWindowController>getController();
 			twc.station = grad;
 			
-			//twc.init();
+			twc.init();
 			
 			
 			Scene scene = new Scene(root,420,550);
@@ -129,6 +129,12 @@ public class MainWindowController implements Initializable{
 			RecordTransitWindowController rtwc = loader.<RecordTransitWindowController>getController();
 			rtwc.station = grad;
 			rtwc.init();
+			
+			Scene scene = new Scene(root,310,140);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle("Record transit");
+			stage.show();
 			
 		}
 		catch (Exception e) {
