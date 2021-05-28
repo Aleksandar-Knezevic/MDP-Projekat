@@ -48,10 +48,19 @@ public class MulticastMessageAcceptThread extends Thread
 				socket.receive(packet);
 				String received = new String(packet.getData(), 0, packet.getLength());
 				if(!station.equals(received.split(":")[0]))
+				{
 					Platform.runLater(()->
 					{
+						mwc.circle.setVisible(true);
 						mwc.notificationArea.appendText(received+"\n");
 					});
+					sleep(500);
+					Platform.runLater(()->
+					{
+						mwc.circle.setVisible(false);
+					});
+				}
+					
 			}
 			catch (Exception e) {
 				e.printStackTrace();

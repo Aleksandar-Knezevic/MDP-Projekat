@@ -44,16 +44,22 @@ public class SoapLoginProxy implements org.unibl.etf.mdp.czsmdp.soap.SoapLogin {
     return soapLogin;
   }
   
+  public java.lang.String getUsers(java.lang.String station) throws java.rmi.RemoteException{
+    if (soapLogin == null)
+      _initSoapLoginProxy();
+    return soapLogin.getUsers(station);
+  }
+  
   public boolean login(java.lang.String username, java.lang.String password, java.lang.String station) throws java.rmi.RemoteException{
     if (soapLogin == null)
       _initSoapLoginProxy();
     return soapLogin.login(username, password, station);
   }
   
-  public java.lang.String getUsers(java.lang.String station) throws java.rmi.RemoteException{
+  public void logout(java.lang.String station) throws java.rmi.RemoteException{
     if (soapLogin == null)
       _initSoapLoginProxy();
-    return soapLogin.getUsers(station);
+    soapLogin.logout(station);
   }
   
   public java.lang.String getStations() throws java.rmi.RemoteException{
@@ -66,6 +72,12 @@ public class SoapLoginProxy implements org.unibl.etf.mdp.czsmdp.soap.SoapLogin {
     if (soapLogin == null)
       _initSoapLoginProxy();
     soapLogin.addUser(username, password, station);
+  }
+  
+  public java.lang.String getOnlineUsers(java.lang.String station) throws java.rmi.RemoteException{
+    if (soapLogin == null)
+      _initSoapLoginProxy();
+    return soapLogin.getOnlineUsers(station);
   }
   
   public void deleteUser(java.lang.String username, java.lang.String station) throws java.rmi.RemoteException{

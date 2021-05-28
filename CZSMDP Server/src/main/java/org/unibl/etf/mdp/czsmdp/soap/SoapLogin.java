@@ -10,8 +10,12 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+
 public class SoapLogin implements Serializable
 {
+	
 
 	
 	
@@ -33,7 +37,21 @@ public class SoapLogin implements Serializable
 		
 	}
 	
-	
+	public void logout(String station)
+	{
+		try
+		{
+			JedisPool jedisPool = new JedisPool("localhost", 6379);
+			Jedis jedis = jedisPool.getResource();
+			jedis.del("status:"+station);
+			jedis.save();
+			jedisPool.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+	}
 	
 	
 	
@@ -41,28 +59,49 @@ public class SoapLogin implements Serializable
 	
 	public boolean login(String username, String password, String station)
 	{
-		try
-		{			
-			File file = new File("." +File.separator+"location-info"+ File.separator + station);
-			XMLDecoder decoder = new XMLDecoder(new FileInputStream(file));
-			ArrayList<User> accounts = (ArrayList<User>) decoder.readObject();
-			decoder.close();
-			
-			for(int i=0;i<accounts.size();i++)
+			try
 			{
-				String hashed = hash(password);
-				User u = accounts.get(i);
-				if(u.getUsername().equals(username) && u.getPassword().equals(hashed))
-					return true;
+				JedisPool jedisPool = new JedisPool("localhost", 6379);
+				Jedis jedis = jedisPool.getResource();
+				if(jedis.get("status:"+station)==null)
+				{
+					File file = new File("." +File.separator+"location-info"+ File.separator + station);
+					XMLDecoder decoder = new XMLDecoder(new FileInputStream(file));
+					ArrayList<User> accounts = (ArrayList<User>) decoder.readObject();
+					decoder.close();
+					
+					for(int i=0;i<accounts.size();i++)
+					{
+						String hashed = hash(password);
+						User u = accounts.get(i);
+						if(u.getUsername().equals(username) && u.getPassword().equals(hashed))
+						{
+							jedis.set("status:"+station, username);
+							jedis.save();
+							jedisPool.close();
+							return true;
+						}
+							
+						
+					}
+					jedisPool.close();
+					return false;
+				}
+				else
+				{
+					jedisPool.close();
+					return false;
+				}
 				
 			}
-			return false;
-		}
-		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return false;
-		}
+			catch (Exception e) {
+				// TODO: handle exception
+				
+				e.printStackTrace();
+				return false;
+			}
+		
+		
 		
 		
 	}
@@ -88,6 +127,24 @@ public class SoapLogin implements Serializable
 			// TODO: handle exception
 			e.printStackTrace();
 			return "error";
+		}
+		
+	}
+	
+	public String getOnlineUsers(String station)
+	{
+		try(JedisPool jedisPool = new JedisPool("localhost", 6379))
+		{
+			Jedis jedis = jedisPool.getResource();
+			if(jedis.get("status:"+station)==null)
+				return "";
+			else
+				return jedis.get("status:"+station);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+			// TODO: handle exception
 		}
 		
 	}

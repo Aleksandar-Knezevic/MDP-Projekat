@@ -10,12 +10,15 @@
       <parameter name="className" value="org.unibl.etf.mdp.czsmdp.soap.SoapLogin"/>
       <parameter name="wsdlPortType" value="SoapLogin"/>
       <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:retNS="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getUsers" qname="operNS:getUsers" returnQName="retNS:getUsersReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:station" type="tns:string"/>
+      </operation>
       <operation xmlns:operNS="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:retNS="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="login" qname="operNS:login" returnQName="retNS:loginReturn" returnType="rtns:boolean" soapAction="">
         <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:username" type="tns:string"/>
         <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
         <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:station" type="tns:string"/>
       </operation>
-      <operation xmlns:operNS="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:retNS="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getUsers" qname="operNS:getUsers" returnQName="retNS:getUsersReturn" returnType="rtns:string" soapAction="">
+      <operation xmlns:operNS="http://soap.czsmdp.mdp.etf.unibl.org" name="logout" qname="operNS:logout" soapAction="">
         <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:station" type="tns:string"/>
       </operation>
       <operation xmlns:operNS="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:retNS="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getStations" qname="operNS:getStations" returnQName="retNS:getStationsReturn" returnType="rtns:string" soapAction="">
@@ -25,11 +28,14 @@
         <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
         <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:station" type="tns:string"/>
       </operation>
+      <operation xmlns:operNS="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:retNS="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getOnlineUsers" qname="operNS:getOnlineUsers" returnQName="retNS:getOnlineUsersReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:station" type="tns:string"/>
+      </operation>
       <operation xmlns:operNS="http://soap.czsmdp.mdp.etf.unibl.org" name="deleteUser" qname="operNS:deleteUser" soapAction="">
         <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:username" type="tns:string"/>
         <parameter xmlns:pns="http://soap.czsmdp.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:station" type="tns:string"/>
       </operation>
-      <parameter name="allowedMethods" value="getUsers addUser deleteUser getStations login"/>
+      <parameter name="allowedMethods" value="logout getUsers addUser deleteUser getStations login getOnlineUsers"/>
 
   </service>
 </deployment>

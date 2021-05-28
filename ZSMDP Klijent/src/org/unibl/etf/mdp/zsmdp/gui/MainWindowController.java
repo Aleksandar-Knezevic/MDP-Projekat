@@ -11,18 +11,23 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import org.unibl.etf.mdp.czsmdp.soap.SoapLogin;
+import org.unibl.etf.mdp.czsmdp.soap.SoapLoginServiceLocator;
 import org.unibl.etf.mdp.zsmdp.message.MessageAcceptThread;
 import org.unibl.etf.mdp.zsmdp.message.MulticastMessageAcceptThread;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -44,6 +49,14 @@ public class MainWindowController implements Initializable{
 	public Label chosenFileLabel;
 	@FXML
 	public TextArea notificationArea;
+	@FXML
+	public Circle circle;
+	@FXML
+	public ComboBox<String> korisniciComboBox;
+	@FXML
+	public Button sendMessageButton;
+	@FXML
+	public Button sendFileButton;
 	
 	
 	public void SendMessageButton()
@@ -232,6 +245,56 @@ public class MainWindowController implements Initializable{
 	}
 	
 	
+	public void logout()
+	{
+		try
+		{
+			SoapLoginServiceLocator locator = new SoapLoginServiceLocator();
+			SoapLogin login = locator.getSoapLogin();
+			login.logout(grad+"#"+locationPortMapping.get(grad)+".xml");
+			messageArea.getScene().getWindow().hide();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+		
+	}
+	
+	
+	public void getUsers()
+	{
+		try
+		{
+			SoapLoginServiceLocator locator = new SoapLoginServiceLocator();
+			SoapLogin login = locator.getSoapLogin();
+			if(!gradoviComboBox.getValue().equals(grad))
+			{
+				korisniciComboBox.getItems().clear();
+				korisniciComboBox.getItems().add(login.getOnlineUsers(gradoviComboBox.getValue()+"#"+locationPortMapping.get(gradoviComboBox.getValue())+".xml"));
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+	}
+	
+	
+	public void comboAction(ActionEvent event)
+	{
+		if(korisniciComboBox.getValue()!=null)
+		{
+			sendFileButton.setDisable(false);
+			sendMessageButton.setDisable(false);
+		}
+		else
+		{
+			sendFileButton.setDisable(true);
+			sendMessageButton.setDisable(true);
+		}
+		
+	}
 	
 	
 	

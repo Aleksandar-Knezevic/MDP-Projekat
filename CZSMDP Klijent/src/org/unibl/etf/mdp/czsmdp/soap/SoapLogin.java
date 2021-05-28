@@ -8,9 +8,11 @@
 package org.unibl.etf.mdp.czsmdp.soap;
 
 public interface SoapLogin extends java.rmi.Remote {
-    public boolean login(java.lang.String username, java.lang.String password, java.lang.String station) throws java.rmi.RemoteException;
     public java.lang.String getUsers(java.lang.String station) throws java.rmi.RemoteException;
+    public boolean login(java.lang.String username, java.lang.String password, java.lang.String station) throws java.rmi.RemoteException;
+    public void logout(java.lang.String station) throws java.rmi.RemoteException;
     public java.lang.String getStations() throws java.rmi.RemoteException;
     public void addUser(java.lang.String username, java.lang.String password, java.lang.String station) throws java.rmi.RemoteException;
+    public java.lang.String getOnlineUsers(java.lang.String station) throws java.rmi.RemoteException;
     public void deleteUser(java.lang.String username, java.lang.String station) throws java.rmi.RemoteException;
 }

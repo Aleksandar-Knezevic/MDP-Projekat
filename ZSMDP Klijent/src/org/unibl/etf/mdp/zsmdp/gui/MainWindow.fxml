@@ -10,20 +10,20 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.unibl.etf.mdp.zsmdp.gui.MainWindowController">
    <children>
-      <Button contentDisplay="CENTER" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Odjava" />
+      <Button contentDisplay="CENTER" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="71.0" text="Odjava" />
       <Button contentDisplay="CENTER" layoutX="113.0" layoutY="23.0" mnemonicParsing="false" onAction="#displayTimetable" text="Red voznje" />
       <Button contentDisplay="CENTER" layoutX="215.0" layoutY="23.0" mnemonicParsing="false" onAction="#recordTransit" text="Evidentiraj prolaz" />
       <Button contentDisplay="CENTER" layoutX="353.0" layoutY="23.0" mnemonicParsing="false" onAction="#sendNotificationButton" text="Posalji obavjestenje" />
       <Button layoutX="491.0" layoutY="23.0" mnemonicParsing="false" onAction="#sendReport" text="Posalji izvjestaj" />
-      <ComboBox fx:id="gradoviComboBox" layoutX="50.0" layoutY="175.0" prefWidth="150.0" />
-      <ComboBox layoutX="225.0" layoutY="175.0" prefWidth="150.0" />
-      <Circle fill="#ff1f1f" layoutX="37.0" layoutY="107.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
+      <ComboBox fx:id="gradoviComboBox" layoutX="50.0" layoutY="175.0" onAction="#getUsers" prefWidth="150.0" />
+      <ComboBox fx:id="korisniciComboBox" layoutX="225.0" layoutY="175.0" onAction="#comboAction" prefWidth="150.0" />
+      <Circle fx:id="circle" fill="#ff1f1f" layoutX="32.0" layoutY="104.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
       <TextArea fx:id="notificationArea" layoutX="55.0" layoutY="70.0" prefHeight="74.0" prefWidth="320.0" />
       <TextField fx:id="messageBox" layoutX="413.0" layoutY="175.0" />
       <Button layoutX="413.0" layoutY="286.0" mnemonicParsing="false" onAction="#chooseFileButton" text="Izaberi fajl" />
-      <Button layoutX="413.0" layoutY="212.0" mnemonicParsing="false" onAction="#SendMessageButton" text="Posalji" />
+      <Button fx:id="sendMessageButton" disable="true" layoutX="413.0" layoutY="212.0" mnemonicParsing="false" onAction="#SendMessageButton" text="Posalji" />
       <TextArea fx:id="messageArea" layoutX="50.0" layoutY="212.0" prefHeight="173.0" prefWidth="178.0" />
       <Label fx:id="chosenFileLabel" layoutX="413.0" layoutY="318.0" prefHeight="74.0" prefWidth="157.0" wrapText="true" />
-      <Button layoutX="501.0" layoutY="286.0" mnemonicParsing="false" onAction="#sendFileButton" prefHeight="25.0" prefWidth="71.0" text="Posalji" />
+      <Button fx:id="sendFileButton" disable="true" layoutX="501.0" layoutY="286.0" mnemonicParsing="false" onAction="#sendFileButton" prefHeight="25.0" prefWidth="71.0" text="Posalji" />
    </children>
 </AnchorPane>

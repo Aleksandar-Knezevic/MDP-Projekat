@@ -25,10 +25,10 @@ public class LinijaRedisServis {
 		System.out.println("Uslo u add");
 		try(Jedis jedis = jedisPool.getResource())
 		{
-			if(jedis.get(linija.nazivLinije)==null)
+			if(jedis.get("linija:"+linija.nazivLinije)==null)
 			{
 				System.out.println("Linija dodata");
-				jedis.set(linija.nazivLinije, gson.toJson(linija));
+				jedis.set("linija:"+linija.nazivLinije, gson.toJson(linija));
 				jedis.save();
 			}
 		}
@@ -42,7 +42,7 @@ public class LinijaRedisServis {
 	{
 		try(Jedis jedis = jedisPool.getResource())
 		{
-				jedis.set(linija.nazivLinije, gson.toJson(linija));
+				jedis.set("linija:"+linija.nazivLinije, gson.toJson(linija));
 				jedis.save();
 		}
 		catch (Exception e) {
@@ -57,7 +57,7 @@ public class LinijaRedisServis {
 		try(Jedis jedis = jedisPool.getResource())
 		{
 			List<Linija> sveLinije = new ArrayList<Linija>();
-			Set<String> keys = jedis.keys("*");
+			Set<String> keys = jedis.keys("linija*");
 			keys.forEach(e ->
 			{
 				sveLinije.add(gson.fromJson(jedis.get(e), Linija.class));
@@ -76,7 +76,7 @@ public class LinijaRedisServis {
 	{
 		try(Jedis jedis = jedisPool.getResource())
 		{
-			jedis.del(linija);
+			jedis.del("linija:"+linija);
 			jedis.save();
 		}
 		catch (Exception e) {
