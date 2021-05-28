@@ -126,7 +126,7 @@ public class SoapLogin implements Serializable
 		catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return "error";
+			return "";
 		}
 		
 	}
