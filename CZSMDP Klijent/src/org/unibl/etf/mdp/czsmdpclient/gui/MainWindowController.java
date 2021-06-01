@@ -157,8 +157,8 @@ public class MainWindowController implements Initializable{
 		{
 			Registry registry = LocateRegistry.getRegistry(1099);
 			AZSRMIinterface rmiInterface = (AZSRMIinterface) registry.lookup("AZS");
-			byte[] file = rmiInterface.download(filesComboBox.getValue());
-			FileOutputStream fos = new FileOutputStream(new File(filesComboBox.getValue()));
+			byte[] file = rmiInterface.download(filesComboBox.getValue().split("\\.Ve")[0]);
+			FileOutputStream fos = new FileOutputStream(new File(filesComboBox.getValue().split("\\.Ve")[0]));
 			fos.write(file);
 			fos.close();
 		}
@@ -175,7 +175,17 @@ public class MainWindowController implements Initializable{
 		{
 			String nazivLinije = nazivLinijePolje.getText();
 			String redVoznje = redVoznjePolje.getText();
-			Linija linija = new Linija(nazivLinije, redVoznje);
+			String gradoviVremena[] = redVoznje.split(",");
+			HashMap<String, Vrijeme> mapa = new HashMap<String, Vrijeme>();
+			for(int i=0;i<gradoviVremena.length;i++)
+			{
+				String[] gradVrijeme = gradoviVremena[i].split("-");
+				Vrijeme v = new Vrijeme(gradVrijeme[1], "Nije prosao");
+				mapa.put(gradVrijeme[0], v);
+				
+			}
+			
+			Linija linija = new Linija(nazivLinije, mapa);
 			Gson gson = new Gson();
 			String res = gson.toJson(linija);
 //			URL url = new URL("http://localhost:8080/CZSMDPServer/api/rest/stations/admin/add");
@@ -247,18 +257,22 @@ public class MainWindowController implements Initializable{
 	public void dohvatiRed()
 	{
 		String voz = linijeBox.getValue();
-		linije.forEach(e -> {
-			if(e.nazivLinije.equals(voz))
+		String res = "";
+		for(int i=0;i<linije.size();i++)
+		{
+			Linija a = linije.get(i);
+			if(a.nazivLinije.equals(voz))
 			{
-				String res = "";
-				Set<String> red = e.vozProlazakMapa.keySet();
-				for(Iterator<String> it = red.iterator(); it.hasNext();)
+				
+				Set<String> gradVrijeme = a.vozProlazakMapa.keySet();
+				for(Iterator<String> it = gradVrijeme.iterator();it.hasNext();)
 				{
-					res+=it.next()+"-";
+					String grad = it.next();
+					res+=grad+"-"+"Ocekivano vrijeme: "+a.vozProlazakMapa.get(grad).ocekivaniProlazak+" Stvarni prolazak: "+a.vozProlazakMapa.get(grad).stvarniProlazak + "\n";
 				}
-				redVoznjelabela.setText(res.substring(0, res.length()-1));
 			}
-		});
+		}
+		redVoznjelabela.setText(res);
 	}
 	
 	

@@ -73,7 +73,7 @@ public class TimetableWindowController {
 			for(Iterator<String> it = gradovi.iterator();it.hasNext();)
 			{
 				String key = it.next();
-				Label label = new Label(key + "-" + e.vozProlazakMapa.get(key));
+				Label label = new Label(key + "-Ocekivano:" + e.vozProlazakMapa.get(key).ocekivaniProlazak+"#Stvarno:"+e.vozProlazakMapa.get(key).stvarniProlazak);
 				one.getChildren().add(label);
 			}
 			

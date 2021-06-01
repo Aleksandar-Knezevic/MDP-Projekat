@@ -22,12 +22,10 @@ public class LinijaRedisServis {
 	
 	public static void add(Linija linija)
 	{
-		System.out.println("Uslo u add");
 		try(Jedis jedis = jedisPool.getResource())
 		{
 			if(jedis.get("linija:"+linija.nazivLinije)==null)
 			{
-				System.out.println("Linija dodata");
 				jedis.set("linija:"+linija.nazivLinije, gson.toJson(linija));
 				jedis.save();
 			}

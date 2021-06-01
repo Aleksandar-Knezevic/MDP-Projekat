@@ -11,9 +11,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
-
 import org.unibl.etf.mdp.czsmdp.soap.SoapLogin;
 import org.unibl.etf.mdp.czsmdp.soap.SoapLoginServiceLocator;
 import org.unibl.etf.mdp.zsmdp.message.MessageAcceptThread;
@@ -64,18 +61,18 @@ public class MainWindowController implements Initializable{
 	
 	public void SendMessageButton()
 	{
-		File file = new File("keystore.jks");
-		System.out.println(file.getAbsolutePath());
-		System.setProperty("javax.net.ssl.keyStore", file.getAbsolutePath());
-		System.setProperty("javax.net.ssl.keyStorePassword", "securemdp");
-		System.setProperty("javax.net.ssl.trustStore", file.getAbsolutePath());
-		System.setProperty("javax.net.ssl.trustStorePassword", "securemdp");
+//		File file = new File("keystore.jks");
+//		System.out.println(file.getAbsolutePath());
+//		System.setProperty("javax.net.ssl.keyStore", file.getAbsolutePath());
+//		System.setProperty("javax.net.ssl.keyStorePassword", "securemdp");
+//		System.setProperty("javax.net.ssl.trustStore", file.getAbsolutePath());
+//		System.setProperty("javax.net.ssl.trustStorePassword", "securemdp");
 		String message = messageBox.getText();
 		messageBox.clear();
 		int destPort = locationPortMapping.get(gradoviComboBox.getValue());
-		SSLSocketFactory sf = (SSLSocketFactory) SSLSocketFactory.getDefault();
-		try(SSLSocket socket = (SSLSocket) sf.createSocket("127.0.0.1", destPort))
-		//try(Socket socket =  new Socket("127.0.0.1", destPort))
+		//SSLSocketFactory sf = (SSLSocketFactory) SSLSocketFactory.getDefault();
+		//try(SSLSocket socket = (SSLSocket) sf.createSocket("127.0.0.1", destPort))
+		try(Socket socket =  new Socket("127.0.0.1", destPort))
 		{
 			System.out.println("Connection established with port " + destPort);
 			PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);

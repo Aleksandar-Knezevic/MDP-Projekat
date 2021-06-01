@@ -4,17 +4,17 @@ import java.util.HashMap;
 
 public class Linija {
 	String nazivLinije;
-	HashMap<String, String> vozProlazakMapa;
+	HashMap<String, Vrijeme> vozProlazakMapa;
 	public String getNazivLinije() {
 		return nazivLinije;
 	}
 	public void setNazivLinije(String nazivLinije) {
 		this.nazivLinije = nazivLinije;
 	}
-	public HashMap<String, String> getVozProlazakMapa() {
+	public HashMap<String, Vrijeme> getVozProlazakMapa() {
 		return vozProlazakMapa;
 	}
-	public void setVozProlazakMapa(HashMap<String, String> vozProlazakMapa) {
+	public void setVozProlazakMapa(HashMap<String, Vrijeme> vozProlazakMapa) {
 		this.vozProlazakMapa = vozProlazakMapa;
 	}
 	@Override
@@ -46,7 +46,7 @@ public class Linija {
 			return false;
 		return true;
 	}
-	public Linija(String nazivLinije, HashMap<String, String> vozProlazakMapa) {
+	public Linija(String nazivLinije, HashMap<String, Vrijeme> vozProlazakMapa) {
 		super();
 		this.nazivLinije = nazivLinije;
 		this.vozProlazakMapa = vozProlazakMapa;
@@ -59,14 +59,14 @@ public class Linija {
 		this.nazivLinije = nazivLinije;
 		vozProlazakMapa = new HashMap();
 	}
-	public Linija(String nazivLinije, String linije) {
-		super();
-		this.nazivLinije = nazivLinije;
-		vozProlazakMapa = new HashMap();
-		String[] gradovi = linije.split("-");
-		for(int i=0;i<gradovi.length;i++)
-			vozProlazakMapa.put(gradovi[i], "Nije prosao");
-	}
+//	public Linija(String nazivLinije, String linije) {
+//		super();
+//		this.nazivLinije = nazivLinije;
+//		vozProlazakMapa = new HashMap();
+//		String[] gradovi = linije.split("-");
+//		for(int i=0;i<gradovi.length;i++)
+//			vozProlazakMapa.put(gradovi[i], "Nije prosao");
+//	}
 	
 	
 

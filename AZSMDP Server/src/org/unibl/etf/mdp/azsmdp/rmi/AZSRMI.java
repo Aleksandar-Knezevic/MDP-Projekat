@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -71,26 +73,52 @@ public class AZSRMI implements AZSRMIinterface{
 
 	@Override
 	public String listStation(String station) throws RemoteException {
+		Gson gson = new Gson();
 		File file = new File("files");
 		String[] allFiles = file.list();
 		String result = "";
 		for(int i=0;i<allFiles.length;i++)
 		{
 			if(allFiles[i].endsWith("pdf") && allFiles[i].startsWith(station))
-				result+=allFiles[i]+"#";
+			{
+				try
+				{
+					FileInfo info = gson.fromJson(Files.readAllLines(Paths.get(new File("files" + File.separator + allFiles[i]+".json").getAbsolutePath())).get(0), FileInfo.class);
+
+					result+=allFiles[i]+".Velicina: "+info.size+"B" + "#";
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+					// TODO: handle exception
+				}
+				
+			}
+				
 		}
 		return result;
 	}
 
 	@Override
 	public String listAll() throws RemoteException {
+		Gson gson = new Gson();
 		File file = new File("files");
 		String[] allFiles = file.list();
 		String result = "";
 		for(int i=0;i<allFiles.length;i++)
 		{
 			if(allFiles[i].endsWith("pdf"))
-				result+=allFiles[i]+"#";
+			{
+				try
+				{
+					FileInfo info = gson.fromJson(Files.readAllLines(Paths.get(new File("files" + File.separator + allFiles[i]+".json").getAbsolutePath())).get(0), FileInfo.class);
+					result+=allFiles[i]+".Velicina: "+info.size+"B" + "#";
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+					// TODO: handle exception
+				}
+				
+			}
 		}
 		return result;
 	}

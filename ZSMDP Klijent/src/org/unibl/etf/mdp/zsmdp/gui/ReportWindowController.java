@@ -31,8 +31,8 @@ public class ReportWindowController {
 	{
 		try
 		{
-			byte[] file = rmiInterface.download(filesComboBox.getValue());
-			FileOutputStream fos = new FileOutputStream(new File(filesComboBox.getValue()));
+			byte[] file = rmiInterface.download(filesComboBox.getValue().split("\\.Ve")[0]);
+			FileOutputStream fos = new FileOutputStream(new File(filesComboBox.getValue().split("\\.Ve")[0]));
 			fos.write(file);
 			fos.close();
 		}

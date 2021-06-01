@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,7 +68,8 @@ public class RecordTransitWindowController {
 	{
 ;
 		Linija linija = linije.stream().filter(e -> e.nazivLinije.equals(linijeComboBox.getValue())).collect(Collectors.toList()).get(0);
-		linija.vozProlazakMapa.put(station, new Date().toString());
+		String ocekivano = linija.vozProlazakMapa.get(station).ocekivaniProlazak;
+		linija.vozProlazakMapa.put(station, new Vrijeme(ocekivano, new SimpleDateFormat("HH:mm").format(new Date())));
 		Gson gson = new Gson();
 		String res = gson.toJson(linija);
 		new Thread(() ->
