@@ -11,6 +11,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import org.jasypt.util.binary.BasicBinaryEncryptor;
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.unibl.etf.mdp.czsmdp.soap.SoapLogin;
 import org.unibl.etf.mdp.czsmdp.soap.SoapLoginServiceLocator;
 import org.unibl.etf.mdp.zsmdp.message.MessageAcceptThread;
@@ -67,7 +69,11 @@ public class MainWindowController implements Initializable{
 //		System.setProperty("javax.net.ssl.keyStorePassword", "securemdp");
 //		System.setProperty("javax.net.ssl.trustStore", file.getAbsolutePath());
 //		System.setProperty("javax.net.ssl.trustStorePassword", "securemdp");
-		String message = messageBox.getText();
+		String plainMessage = messageBox.getText();
+		BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+		textEncryptor.setPassword(korisnik);
+		String message = textEncryptor.encrypt(plainMessage);
+		System.out.println(message);
 		messageBox.clear();
 		int destPort = locationPortMapping.get(gradoviComboBox.getValue());
 		//SSLSocketFactory sf = (SSLSocketFactory) SSLSocketFactory.getDefault();
@@ -193,8 +199,8 @@ public class MainWindowController implements Initializable{
 		{
 			File file = new File(chosenFileLabel.getText());
 			FileInputStream fis = new FileInputStream(file);
-			byte[] fileArray = new byte[fis.available()];
-			fis.read(fileArray);
+			byte[] plainFileArray = new byte[fis.available()];
+			fis.read(plainFileArray);
 			chosenFileLabel.setText("");
 			int destPort = locationPortMapping.get(gradoviComboBox.getValue());
 			Socket socket =  new Socket("127.0.0.1", destPort);
@@ -208,9 +214,12 @@ public class MainWindowController implements Initializable{
 			Thread.sleep(100);
 			
 			System.out.println("Connection established with port " + destPort);
-			
+			BasicBinaryEncryptor binaryEncryptor = new BasicBinaryEncryptor();
+			binaryEncryptor.setPassword(korisnik.trim());
+			byte[] fileArray = binaryEncryptor.encrypt(plainFileArray);
 			Socket socket1 = new Socket("127.0.0.1", destPort*2);
 			OutputStream out = socket1.getOutputStream();
+			System.out.println("Otislo " +fileArray.length);
 			out.write(fileArray, 0, fileArray.length);
 			out.close();
 			socket1.close();

@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.unibl.etf.mdp.zsmdp.gui.MainWindowController;
 
 import javafx.application.Platform;
@@ -51,17 +52,21 @@ public class MessageAcceptThread extends Thread
 				String type = br.readLine();
 				if("MSG".equals(type))
 				{
-					String message = br.readLine();
+					String incomingMessage = br.readLine();
+					String[] parts = incomingMessage.split(":");
+					BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+					textEncryptor.setPassword(parts[0]);
+					String message = textEncryptor.decrypt(parts[1]);
 					Platform.runLater(() ->
 					{
-						mc.messageArea.appendText(message+'\n');
+						mc.messageArea.appendText(parts[0]+": "+message+'\n');
 					});
 				}
 				if("FILE".equals(type))
 				{
 					String user = br.readLine();
 					String fileName = br.readLine();
-					new FileAcceptThread(port, fileName);
+					new FileAcceptThread(port, fileName, user);
 					Platform.runLater(() ->
 					{
 						mc.messageArea.appendText(user + " je poslao fajl: " + fileName+"\n");

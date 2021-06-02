@@ -6,13 +6,16 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.jasypt.util.binary.BasicBinaryEncryptor;
+
 public class FileAcceptThread extends Thread
 {
 	
 	ServerSocket ss;
 	String name;
+	String user;
 	
-	public FileAcceptThread(int cityPort, String filename)
+	public FileAcceptThread(int cityPort, String filename, String user)
 	{
 		try {
 			
@@ -20,6 +23,7 @@ public class FileAcceptThread extends Thread
 			//ss = ssf.createServerSocket(cityPort);
 			ss = new ServerSocket(cityPort*2);
 			name = filename;
+			this.user = user;
 			System.out.println("Pokrenut na portu " + cityPort*2);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -36,11 +40,21 @@ public class FileAcceptThread extends Thread
 			{
 				Socket socket = ss.accept();
 				InputStream in = socket.getInputStream();
-				byte[] bytes = new byte[1024];
+				byte[] bytes = new byte[999999];
 				int count;
 				FileOutputStream fos = new FileOutputStream(new File(name));
 				while((count = in.read(bytes))>0)
-					fos.write(bytes, 0, bytes.length);
+				{
+					System.out.println("Doslo je " + count);
+					BasicBinaryEncryptor binaryEncryptor = new BasicBinaryEncryptor();
+					binaryEncryptor.setPassword(user);
+					byte[] test = new byte[count];
+					for(int i=0;i<count;i++)
+						test[i] = bytes[i];
+					byte[] res = binaryEncryptor.decrypt(test);
+					fos.write(res, 0, res.length);
+				}
+					
 				in.close();
 				fos.close();
 				socket.close();
