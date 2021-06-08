@@ -5,8 +5,10 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
 
 import org.jasypt.util.binary.BasicBinaryEncryptor;
+import org.unibl.etf.mdp.logger.MyLogger;
 
 public class FileAcceptThread extends Thread
 {
@@ -19,8 +21,6 @@ public class FileAcceptThread extends Thread
 	{
 		try {
 			
-			//SSLServerSocketFactory ssf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-			//ss = ssf.createServerSocket(cityPort);
 			ss = new ServerSocket(cityPort*2);
 			name = filename;
 			this.user = user;
@@ -61,7 +61,7 @@ public class FileAcceptThread extends Thread
 				ss.close();
 			}
 			catch (Exception e) {
-				e.printStackTrace();
+				MyLogger.log(Level.WARNING, e.getMessage(), e);
 				// TODO: handle exception
 			}
 		

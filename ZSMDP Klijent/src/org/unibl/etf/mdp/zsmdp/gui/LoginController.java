@@ -3,9 +3,11 @@ package org.unibl.etf.mdp.zsmdp.gui;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 import org.unibl.etf.mdp.czsmdp.soap.SoapLogin;
 import org.unibl.etf.mdp.czsmdp.soap.SoapLoginServiceLocator;
+import org.unibl.etf.mdp.logger.MyLogger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -91,8 +93,7 @@ public class LoginController implements Initializable {
 			
 		}
 		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 
@@ -103,7 +104,6 @@ public class LoginController implements Initializable {
 		try {
 		SoapLogin login = locator.getSoapLogin();
 		String allLocations = login.getStations();
-		//System.out.println(allLocations);
 		String[] portLocations = allLocations.split("@");
 		for(int i=0;i<portLocations.length;i++)
 		{
@@ -112,8 +112,7 @@ public class LoginController implements Initializable {
 		}
 		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 		loginGradoviBox.getItems().addAll(locationPortMapping.keySet());
 		

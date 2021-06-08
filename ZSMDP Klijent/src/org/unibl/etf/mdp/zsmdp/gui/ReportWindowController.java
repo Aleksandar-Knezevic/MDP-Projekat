@@ -5,8 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.logging.Level;
 
 import org.unibl.etf.mdp.azsmdp.rmi.AZSRMIinterface;
+import org.unibl.etf.mdp.logger.MyLogger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -18,6 +20,10 @@ public class ReportWindowController {
 	String user;
 	String station;
 	AZSRMIinterface rmiInterface;
+	
+	public static String POLICY_FILE = "policyfile.txt";
+	public static int REGISTRY_NO = 1099;
+	public static String STUB_NAME = "AZS";
 	
 	
 	@FXML
@@ -37,8 +43,7 @@ public class ReportWindowController {
 			fos.close();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 		
 	}
@@ -57,8 +62,7 @@ public class ReportWindowController {
 	        
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 		
 	}
@@ -75,22 +79,21 @@ public class ReportWindowController {
 			chosenFileLabel.setText("");
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	
 	
 	public void init()
 	{
-		File file = new File("policyfile.txt");
+		File file = new File(POLICY_FILE);
 		System.setProperty("java.security.policy", file.getAbsolutePath());
 		if(System.getSecurityManager()==null)
 			System.setSecurityManager(new SecurityManager());
 		try
 		{
-			Registry registry = LocateRegistry.getRegistry(1099);
-			rmiInterface = (AZSRMIinterface) registry.lookup("AZS");
+			Registry registry = LocateRegistry.getRegistry(REGISTRY_NO);
+			rmiInterface = (AZSRMIinterface) registry.lookup(STUB_NAME);
 			
 			
 			String[] result = rmiInterface.listStation(station).split("#");
@@ -99,8 +102,7 @@ public class ReportWindowController {
 			
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 }

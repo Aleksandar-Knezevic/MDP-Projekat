@@ -3,8 +3,10 @@ package org.unibl.etf.mdp.messages;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
+import java.util.logging.Level;
 
 import org.unibl.etf.mdp.czsmdpclient.gui.MainWindowController;
+import org.unibl.etf.mdp.logger.MyLogger;
 
 import javafx.application.Platform;
 
@@ -26,8 +28,7 @@ public class MulticastAcceptThread extends Thread {
 			socket.joinGroup(address);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 		start();
 	}
@@ -49,8 +50,7 @@ public class MulticastAcceptThread extends Thread {
 				});
 			}
 			catch (Exception e) {
-				e.printStackTrace();
-				// TODO: handle exception
+				MyLogger.log(Level.WARNING, e.getMessage(), e);
 			}
 		}
 	}

@@ -9,6 +9,9 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.logging.Level;
+
+import org.unibl.etf.mdp.logger.MyLogger;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -30,8 +33,7 @@ public class SoapLogin implements Serializable
 			return result;
 		}
 		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 			return "error";
 		}
 		
@@ -48,8 +50,7 @@ public class SoapLogin implements Serializable
 			jedisPool.close();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	
@@ -95,9 +96,7 @@ public class SoapLogin implements Serializable
 				
 			}
 			catch (Exception e) {
-				// TODO: handle exception
-				
-				e.printStackTrace();
+				MyLogger.log(Level.WARNING, e.getMessage(), e);
 				return false;
 			}
 		
@@ -124,8 +123,7 @@ public class SoapLogin implements Serializable
 			return result;
 		}
 		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 			return "";
 		}
 		
@@ -142,7 +140,7 @@ public class SoapLogin implements Serializable
 				return jedis.get("status:"+station);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 			return "error";
 			// TODO: handle exception
 		}
@@ -167,8 +165,7 @@ public class SoapLogin implements Serializable
 		
 		}
 		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	
@@ -198,8 +195,7 @@ public class SoapLogin implements Serializable
 		
 		}
 		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	

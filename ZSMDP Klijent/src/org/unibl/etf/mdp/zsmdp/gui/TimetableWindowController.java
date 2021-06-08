@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 
 import org.json.JSONArray;
+import org.unibl.etf.mdp.logger.MyLogger;
 
 import com.google.gson.Gson;
 
@@ -25,6 +27,8 @@ public class TimetableWindowController {
 
 	String station;
 	List<Linija> linije;
+	
+	public static String STATIONS_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/";
 	
 	
 	@FXML
@@ -40,7 +44,7 @@ public class TimetableWindowController {
 	public void init() {
 		try
 		{
-		InputStream is = new URL("http://localhost:8080/CZSMDPServer/api/rest/stations/"+station.replace(" ", "%20")).openStream();
+		InputStream is = new URL(STATIONS_URL+station.replace(" ", "%20")).openStream();
 		BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
 		String jsonText = readAll(rd);
 		JSONArray json = new JSONArray(jsonText);
@@ -86,8 +90,7 @@ public class TimetableWindowController {
 		
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 		
 	}

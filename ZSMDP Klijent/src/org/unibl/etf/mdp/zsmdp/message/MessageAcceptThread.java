@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
 
 import org.jasypt.util.text.BasicTextEncryptor;
+import org.unibl.etf.mdp.logger.MyLogger;
 import org.unibl.etf.mdp.zsmdp.gui.MainWindowController;
 
 import javafx.application.Platform;
@@ -20,21 +22,13 @@ public class MessageAcceptThread extends Thread
 	public MessageAcceptThread(MainWindowController ms, int cityPort)
 	{
 		try {
-//			File file = new File("keystore.jks");
-//			System.out.println(file.getAbsolutePath());
-//			System.setProperty("javax.net.ssl.keyStore", file.getAbsolutePath());
-//			System.setProperty("javax.net.ssl.keyStorePassword", "securemdp");
-//			System.setProperty("javax.net.ssl.trustStore", file.getAbsolutePath());
-//			System.setProperty("javax.net.ssl.trustStorePassword", "securemdp");
-//			SSLServerSocketFactory ssf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-//			ss = ssf.createServerSocket(cityPort);
+
 			port = cityPort;
 			ss = new ServerSocket(cityPort);
 			mc = ms;
 			System.out.println("Pokrenut na portu " + cityPort);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 		start();
 	}
@@ -45,7 +39,6 @@ public class MessageAcceptThread extends Thread
 		while(true)
 		{
 			try {
-				//SSLSocket socket = (SSLSocket)ss.accept();
 				Socket socket = ss.accept();
 				System.out.println("Connection accepted");
 				BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));	
@@ -77,8 +70,7 @@ public class MessageAcceptThread extends Thread
 				br.close();
 				socket.close();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MyLogger.log(Level.WARNING, e.getMessage(), e);
 			}
 		}
 	}

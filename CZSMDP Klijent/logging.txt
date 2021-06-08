@@ -1,0 +1,78 @@
+Jun 08, 2021 6:55:35 PM org.unibl.etf.mdp.logger.MyLogger log
+WARNING: 
+/C:/Users/aleks/OneDrive/Radna%20povr%c5%a1ina/Java/MDP%20Projekat/CZSMDP%20Klijent/bin/org/unibl/etf/mdp/czsmdpclient/gui/MainWindow.fxml:61
+
+javafx.fxml.LoadException: 
+/C:/Users/aleks/OneDrive/Radna%20povr%c5%a1ina/Java/MDP%20Projekat/CZSMDP%20Klijent/bin/org/unibl/etf/mdp/czsmdpclient/gui/MainWindow.fxml:61
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2603)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3237)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3194)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3163)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3136)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3113)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:3106)
+	at org.unibl.etf.mdp.czsmdpclient.gui.Main.start(Main.java:21)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:846)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:455)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:428)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:427)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:174)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: java.lang.IllegalArgumentException: Can not set javafx.scene.control.TextField field org.unibl.etf.mdp.czsmdpclient.gui.MainWindowController.redVoznjelabela to javafx.scene.control.TextArea
+	at java.base/jdk.internal.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:167)
+	at java.base/jdk.internal.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:171)
+	at java.base/jdk.internal.reflect.UnsafeObjectFieldAccessorImpl.set(UnsafeObjectFieldAccessorImpl.java:81)
+	at java.base/java.lang.reflect.Field.set(Field.java:793)
+	at javafx.fxml/javafx.fxml.FXMLLoader.injectFields(FXMLLoader.java:1174)
+	at javafx.fxml/javafx.fxml.FXMLLoader.access$1600(FXMLLoader.java:105)
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processValue(FXMLLoader.java:865)
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:759)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2722)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2552)
+	... 17 more
+
+Jun 08, 2021 6:56:07 PM org.unibl.etf.mdp.logger.MyLogger log
+WARNING: 
+/C:/Users/aleks/OneDrive/Radna%20povr%c5%a1ina/Java/MDP%20Projekat/CZSMDP%20Klijent/bin/org/unibl/etf/mdp/czsmdpclient/gui/MainWindow.fxml:61
+
+javafx.fxml.LoadException: 
+/C:/Users/aleks/OneDrive/Radna%20povr%c5%a1ina/Java/MDP%20Projekat/CZSMDP%20Klijent/bin/org/unibl/etf/mdp/czsmdpclient/gui/MainWindow.fxml:61
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2603)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3237)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3194)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3163)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3136)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3113)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:3106)
+	at org.unibl.etf.mdp.czsmdpclient.gui.Main.start(Main.java:21)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:846)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:455)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:428)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:427)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:174)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: java.lang.IllegalArgumentException: Can not set javafx.scene.control.TextField field org.unibl.etf.mdp.czsmdpclient.gui.MainWindowController.redVoznjelabela to javafx.scene.control.TextArea
+	at java.base/jdk.internal.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:167)
+	at java.base/jdk.internal.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:171)
+	at java.base/jdk.internal.reflect.UnsafeObjectFieldAccessorImpl.set(UnsafeObjectFieldAccessorImpl.java:81)
+	at java.base/java.lang.reflect.Field.set(Field.java:793)
+	at javafx.fxml/javafx.fxml.FXMLLoader.injectFields(FXMLLoader.java:1174)
+	at javafx.fxml/javafx.fxml.FXMLLoader.access$1600(FXMLLoader.java:105)
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processValue(FXMLLoader.java:865)
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:759)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2722)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2552)
+	... 17 more
+

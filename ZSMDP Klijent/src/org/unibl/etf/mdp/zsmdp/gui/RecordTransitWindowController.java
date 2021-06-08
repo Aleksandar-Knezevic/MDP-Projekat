@@ -11,9 +11,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import org.json.JSONArray;
+import org.unibl.etf.mdp.logger.MyLogger;
 
 import com.google.gson.Gson;
 
@@ -29,6 +31,8 @@ public class RecordTransitWindowController {
 	
 	String station;
 	List<Linija> linije;
+	public static String STATION_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/";
+	public static String CITY_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/city";
 	
 	
 	@FXML
@@ -43,7 +47,7 @@ public class RecordTransitWindowController {
 	{
 		try
 		{
-			InputStream is = new URL("http://localhost:8080/CZSMDPServer/api/rest/stations/"+station.replace(" ", "%20")).openStream();
+			InputStream is = new URL(STATION_URL+station.replace(" ", "%20")).openStream();
 			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
 			String jsonText = readAll(rd);
 			JSONArray json = new JSONArray(jsonText);
@@ -55,8 +59,7 @@ public class RecordTransitWindowController {
 			linijeComboBox.getItems().addAll(linije.stream().map(e -> e.nazivLinije).collect(Collectors.toList()));
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	
@@ -77,14 +80,13 @@ public class RecordTransitWindowController {
 			OkHttpClient client = new OkHttpClient();
 			RequestBody body = RequestBody.create(MediaType.get("application/json; charset=utf-8"), res);
 			Request request = new Request.Builder()
-					.url("http://localhost:8080/CZSMDPServer/api/rest/stations/city")
+					.url(CITY_URL)
 					.put(body)
 					.build();
 			try {
 				client.newCall(request).execute();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MyLogger.log(Level.WARNING, e.getMessage(), e);
 			}
 			
 		}).start();

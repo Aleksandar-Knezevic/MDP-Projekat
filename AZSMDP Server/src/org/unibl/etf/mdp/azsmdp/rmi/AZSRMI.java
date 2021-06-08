@@ -13,21 +13,36 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
 
 import com.google.gson.Gson;
 
 public class AZSRMI implements AZSRMIinterface{
+	
+	public static String POLICY_FILENAME = "policyfile.txt";
+	public static int REGISTRY_NO = 1099;
+	public static String STUB_NAME = "AZS";
+	public static String FILES_LOCATION = "files";
 
-	public static void main(String[] args) throws Exception{
-		File file = new File("policyfile.txt");
-		System.setProperty("java.security.policy", file.getAbsolutePath());
-		if(System.getSecurityManager()==null)
-			System.setSecurityManager(new SecurityManager());
-		AZSRMI server = new AZSRMI();
-		AZSRMIinterface stub = (AZSRMIinterface) UnicastRemoteObject.exportObject(server, 0);
-		Registry registry = LocateRegistry.createRegistry(1099);
-		registry.rebind("AZS", stub);
-		System.out.println("Server started.");
+	public static void main(String[] args){
+		
+		try
+		{
+			MyLogger.setup();
+			File file = new File(POLICY_FILENAME);
+			System.setProperty("java.security.policy", file.getAbsolutePath());
+			if(System.getSecurityManager()==null)
+				System.setSecurityManager(new SecurityManager());
+			AZSRMI server = new AZSRMI();
+			AZSRMIinterface stub = (AZSRMIinterface) UnicastRemoteObject.exportObject(server, 0);
+			Registry registry = LocateRegistry.createRegistry(REGISTRY_NO);
+			registry.rebind(STUB_NAME, stub);
+			System.out.println("Server started.");
+		}
+		catch (Exception e) {
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
+		}
+		
 	}
 
 	@Override
@@ -35,21 +50,20 @@ public class AZSRMI implements AZSRMIinterface{
 		try
 		{
 			String finalFileName = station + filename + System.currentTimeMillis()+".pdf";
-			File file = new File("files"+File.separator + finalFileName);
+			File file = new File(FILES_LOCATION+File.separator + finalFileName);
 			FileOutputStream fos = new FileOutputStream(file);
 			fos.write(fileStream);
 			fos.close();
 			FileInfo fileInfo = new FileInfo(user, new SimpleDateFormat("dd.MM.yyy").format(new Date()), fileStream.length);
 			Gson gson = new Gson();
 			String json = gson.toJson(fileInfo);
-			File jsonFile = new File("files" + File.separator+finalFileName+".json");
+			File jsonFile = new File(FILES_LOCATION + File.separator+finalFileName+".json");
 			BufferedWriter bw = new BufferedWriter(new FileWriter(jsonFile));
 			bw.write(json);
 			bw.close();
 		}
 		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 		
 		
@@ -59,13 +73,12 @@ public class AZSRMI implements AZSRMIinterface{
 	public byte[] download(String name) throws RemoteException {
 		try
 		{
-			File file = new File("files" + File.separator + name);
+			File file = new File(FILES_LOCATION + File.separator + name);
 			FileInputStream fis = new FileInputStream(file);
 			return fis.readAllBytes();
 		}
 		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 			return new byte[1];
 		}
 		
@@ -74,7 +87,7 @@ public class AZSRMI implements AZSRMIinterface{
 	@Override
 	public String listStation(String station) throws RemoteException {
 		Gson gson = new Gson();
-		File file = new File("files");
+		File file = new File(FILES_LOCATION);
 		String[] allFiles = file.list();
 		String result = "";
 		for(int i=0;i<allFiles.length;i++)
@@ -83,13 +96,12 @@ public class AZSRMI implements AZSRMIinterface{
 			{
 				try
 				{
-					FileInfo info = gson.fromJson(Files.readAllLines(Paths.get(new File("files" + File.separator + allFiles[i]+".json").getAbsolutePath())).get(0), FileInfo.class);
+					FileInfo info = gson.fromJson(Files.readAllLines(Paths.get(new File(FILES_LOCATION + File.separator + allFiles[i]+".json").getAbsolutePath())).get(0), FileInfo.class);
 
 					result+=allFiles[i]+".Velicina: "+info.size+"B" + "#";
 				}
 				catch (Exception e) {
-					e.printStackTrace();
-					// TODO: handle exception
+					MyLogger.log(Level.WARNING, e.getMessage(), e);
 				}
 				
 			}
@@ -101,7 +113,7 @@ public class AZSRMI implements AZSRMIinterface{
 	@Override
 	public String listAll() throws RemoteException {
 		Gson gson = new Gson();
-		File file = new File("files");
+		File file = new File(FILES_LOCATION);
 		String[] allFiles = file.list();
 		String result = "";
 		for(int i=0;i<allFiles.length;i++)
@@ -110,12 +122,11 @@ public class AZSRMI implements AZSRMIinterface{
 			{
 				try
 				{
-					FileInfo info = gson.fromJson(Files.readAllLines(Paths.get(new File("files" + File.separator + allFiles[i]+".json").getAbsolutePath())).get(0), FileInfo.class);
+					FileInfo info = gson.fromJson(Files.readAllLines(Paths.get(new File(FILES_LOCATION + File.separator + allFiles[i]+".json").getAbsolutePath())).get(0), FileInfo.class);
 					result+=allFiles[i]+".Velicina: "+info.size+"B" + "#";
 				}
 				catch (Exception e) {
-					e.printStackTrace();
-					// TODO: handle exception
+					MyLogger.log(Level.WARNING, e.getMessage(), e);
 				}
 				
 			}

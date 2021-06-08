@@ -7,21 +7,20 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.URL;
 import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 import org.jasypt.util.binary.BasicBinaryEncryptor;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.unibl.etf.mdp.czsmdp.soap.SoapLogin;
 import org.unibl.etf.mdp.czsmdp.soap.SoapLoginServiceLocator;
+import org.unibl.etf.mdp.logger.MyLogger;
 import org.unibl.etf.mdp.zsmdp.message.MessageAcceptThread;
 import org.unibl.etf.mdp.zsmdp.message.MulticastMessageAcceptThread;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,12 +32,13 @@ import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class MainWindowController implements Initializable{
+public class MainWindowController{
 	
 	public int port;
 	public String grad;
 	public HashMap<String, Integer> locationPortMapping;
 	public String korisnik;
+	public static String HOST_ADDR = "127.0.0.1";
 
 
 	@FXML
@@ -63,12 +63,6 @@ public class MainWindowController implements Initializable{
 	
 	public void SendMessageButton()
 	{
-//		File file = new File("keystore.jks");
-//		System.out.println(file.getAbsolutePath());
-//		System.setProperty("javax.net.ssl.keyStore", file.getAbsolutePath());
-//		System.setProperty("javax.net.ssl.keyStorePassword", "securemdp");
-//		System.setProperty("javax.net.ssl.trustStore", file.getAbsolutePath());
-//		System.setProperty("javax.net.ssl.trustStorePassword", "securemdp");
 		String plainMessage = messageBox.getText();
 		BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
 		textEncryptor.setPassword(korisnik);
@@ -76,9 +70,7 @@ public class MainWindowController implements Initializable{
 		System.out.println(message);
 		messageBox.clear();
 		int destPort = locationPortMapping.get(gradoviComboBox.getValue());
-		//SSLSocketFactory sf = (SSLSocketFactory) SSLSocketFactory.getDefault();
-		//try(SSLSocket socket = (SSLSocket) sf.createSocket("127.0.0.1", destPort))
-		try(Socket socket =  new Socket("127.0.0.1", destPort))
+		try(Socket socket =  new Socket(HOST_ADDR, destPort))
 		{
 			System.out.println("Connection established with port " + destPort);
 			PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
@@ -87,7 +79,7 @@ public class MainWindowController implements Initializable{
 			pw.close();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	
@@ -112,8 +104,7 @@ public class MainWindowController implements Initializable{
 			stage.show();
 		}
 		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	
@@ -139,8 +130,7 @@ public class MainWindowController implements Initializable{
 			stage.show();
 		}
 		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	
@@ -163,8 +153,7 @@ public class MainWindowController implements Initializable{
 			
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 		
 	
@@ -187,8 +176,7 @@ public class MainWindowController implements Initializable{
 	        
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	
@@ -203,7 +191,7 @@ public class MainWindowController implements Initializable{
 			fis.read(plainFileArray);
 			chosenFileLabel.setText("");
 			int destPort = locationPortMapping.get(gradoviComboBox.getValue());
-			Socket socket =  new Socket("127.0.0.1", destPort);
+			Socket socket =  new Socket(HOST_ADDR, destPort);
 			PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
 			pw.println("FILE");
 			pw.println(korisnik);
@@ -217,7 +205,7 @@ public class MainWindowController implements Initializable{
 			BasicBinaryEncryptor binaryEncryptor = new BasicBinaryEncryptor();
 			binaryEncryptor.setPassword(korisnik.trim());
 			byte[] fileArray = binaryEncryptor.encrypt(plainFileArray);
-			Socket socket1 = new Socket("127.0.0.1", destPort*2);
+			Socket socket1 = new Socket(HOST_ADDR, destPort*2);
 			OutputStream out = socket1.getOutputStream();
 			System.out.println("Otislo " +fileArray.length);
 			out.write(fileArray, 0, fileArray.length);
@@ -226,8 +214,7 @@ public class MainWindowController implements Initializable{
 			
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 		
@@ -254,8 +241,7 @@ public class MainWindowController implements Initializable{
 			stage.show();
 		}
 		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	
@@ -270,8 +256,7 @@ public class MainWindowController implements Initializable{
 			messageArea.getScene().getWindow().hide();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 		
 	}
@@ -290,8 +275,7 @@ public class MainWindowController implements Initializable{
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	
@@ -323,15 +307,7 @@ public class MainWindowController implements Initializable{
 
 
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		File file = new File("keystore.jks");
-		System.setProperty("javax.net.ssl.keyStore", file.getAbsolutePath());
-		System.setProperty("javax.net.ssl.keyStorePassword", "securemdp");
-		System.setProperty("javax.net.ssl.trustStore", file.getAbsolutePath());
-		System.setProperty("javax.net.ssl.trustStorePassword", "securemdp");
-		
-	}
+	
 	
 	
 	public void init()

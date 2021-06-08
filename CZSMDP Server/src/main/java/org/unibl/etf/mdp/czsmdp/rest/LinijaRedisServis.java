@@ -1,9 +1,13 @@
 package org.unibl.etf.mdp.czsmdp.rest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
+
+import org.unibl.etf.mdp.logger.MyLogger;
 
 import com.google.gson.Gson;
 
@@ -14,10 +18,17 @@ public class LinijaRedisServis {
 
 	private static JedisPool jedisPool;
 	private static Gson gson;
+	private static String HOST = "localhost";
+	private static int PORT = 6379;
 	
 	static {
-		jedisPool = new JedisPool("localhost", 6379);
+		jedisPool = new JedisPool(HOST, PORT);
 		gson = new Gson();
+		try {
+			MyLogger.setup();
+		} catch (IOException e) {
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
+		}
 	}
 	
 	public static void add(Linija linija)
@@ -31,8 +42,7 @@ public class LinijaRedisServis {
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	
@@ -44,8 +54,7 @@ public class LinijaRedisServis {
 				jedis.save();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	
@@ -63,8 +72,7 @@ public class LinijaRedisServis {
 			return sveLinije;
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 			return null;
 		}
 	}
@@ -78,8 +86,7 @@ public class LinijaRedisServis {
 			jedis.save();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 	
