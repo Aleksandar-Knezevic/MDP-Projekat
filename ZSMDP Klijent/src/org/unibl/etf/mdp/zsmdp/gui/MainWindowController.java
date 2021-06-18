@@ -207,7 +207,6 @@ public class MainWindowController{
 			byte[] fileArray = binaryEncryptor.encrypt(plainFileArray);
 			Socket socket1 = new Socket(HOST_ADDR, destPort*2);
 			OutputStream out = socket1.getOutputStream();
-			System.out.println("Otislo " +fileArray.length);
 			out.write(fileArray, 0, fileArray.length);
 			out.close();
 			socket1.close();
@@ -254,6 +253,7 @@ public class MainWindowController{
 			SoapLogin login = locator.getSoapLogin();
 			login.logout(grad+"#"+locationPortMapping.get(grad)+".xml");
 			messageArea.getScene().getWindow().hide();
+			System.exit(0);
 		}
 		catch (Exception e) {
 			MyLogger.log(Level.WARNING, e.getMessage(), e);

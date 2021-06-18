@@ -45,7 +45,6 @@ public class FileAcceptThread extends Thread
 				FileOutputStream fos = new FileOutputStream(new File(name));
 				while((count = in.read(bytes))>0)
 				{
-					System.out.println("Doslo je " + count);
 					BasicBinaryEncryptor binaryEncryptor = new BasicBinaryEncryptor();
 					binaryEncryptor.setPassword(user);
 					byte[] test = new byte[count];
