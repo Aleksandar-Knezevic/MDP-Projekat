@@ -1,8 +1,10 @@
 package org.unibl.etf.mdp.messages;
 
+import java.io.FileInputStream;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
+import java.util.Properties;
 import java.util.logging.Level;
 
 import org.unibl.etf.mdp.czsmdpclient.gui.MainWindowController;
@@ -14,12 +16,22 @@ public class MulticastAcceptThread extends Thread {
 
 	
 	public MainWindowController mwc;
-	int port = 20000;
-	String host = "224.0.0.11";
+	int port;
+	String host;
 	MulticastSocket socket;
 	
 	public MulticastAcceptThread(MainWindowController m)
 	{
+		try
+		{
+			Properties props = new Properties();
+			props.load(new FileInputStream("config.properties"));
+			port = Integer.parseInt(props.getProperty("MULTICAST_PORT"));
+			host = props.getProperty("MULTICAST_ADDR");
+		}
+		catch (Exception e) {
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
+		}
 		mwc=m;
 		try
 		{

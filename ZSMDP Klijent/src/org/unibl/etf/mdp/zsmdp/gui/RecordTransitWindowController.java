@@ -31,8 +31,8 @@ public class RecordTransitWindowController {
 	
 	String station;
 	List<Linija> linije;
-	public static String STATION_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/";
-	public static String CITY_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/city";
+	public static final String STATION_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/";
+	public static final String CITY_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/city";
 	
 	
 	@FXML

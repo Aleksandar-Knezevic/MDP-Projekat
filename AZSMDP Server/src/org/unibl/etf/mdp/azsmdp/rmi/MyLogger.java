@@ -14,6 +14,7 @@ public class MyLogger {
 	public static void setup() throws IOException
 	{
 		logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+		logger.setUseParentHandlers(false);
 		logger.setLevel(Level.INFO);
 		FileHandler logFile = new FileHandler(LOG_FILE, true);
 		

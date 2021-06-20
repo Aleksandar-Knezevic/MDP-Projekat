@@ -28,7 +28,7 @@ public class TimetableWindowController {
 	String station;
 	List<Linija> linije;
 	
-	public static String STATIONS_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/";
+	public static final String STATIONS_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/";
 	
 	
 	@FXML

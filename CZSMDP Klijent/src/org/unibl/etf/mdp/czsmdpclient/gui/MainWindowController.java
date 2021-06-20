@@ -2,6 +2,7 @@ package org.unibl.etf.mdp.czsmdpclient.gui;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
@@ -43,12 +45,12 @@ public class MainWindowController implements Initializable{
 
 	public HashMap<String, Integer> locationPortMapping;
 	public List<Linija> linije;
-	public static String POLICY_FILE = "policyfile.txt";
-	public static int REGISTRY_NO = 1099;
-	public static String STUB_NAME = "AZS";
-	public static String ADD_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/admin/add";
-	public static String ALL_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/admin/all";
-	public static String DEL_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/admin/delete/";
+	public static final String POLICY_FILE = "policyfile.txt";
+	public static int REGISTRY_NO;
+	public static final String STUB_NAME = "AZS";
+	public static final String ADD_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/admin/add";
+	public static final String ALL_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/admin/all";
+	public static final String DEL_URL = "http://localhost:8080/CZSMDPServer/api/rest/stations/admin/delete/";
 	
 	
 	@FXML
@@ -297,6 +299,16 @@ public class MainWindowController implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		try
+		{
+			Properties props = new Properties();
+			props.load(new FileInputStream("config.properties"));
+			REGISTRY_NO = Integer.parseInt(props.getProperty("REGISTRY_NO"));
+
+		}
+		catch (Exception e) {
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
+		}
 		locationPortMapping = new HashMap<String, Integer>();
 		SoapLoginServiceLocator locator = new SoapLoginServiceLocator();
 		try {

@@ -19,10 +19,10 @@ import com.google.gson.Gson;
 
 public class AZSRMI implements AZSRMIinterface{
 	
-	public static String POLICY_FILENAME = "policyfile.txt";
-	public static int REGISTRY_NO = 1099;
-	public static String STUB_NAME = "AZS";
-	public static String FILES_LOCATION = "files";
+	public static final String POLICY_FILENAME = "policyfile.txt";
+	public static final int REGISTRY_NO = 1099;
+	public static final String STUB_NAME = "AZS";
+	public static final String FILES_LOCATION = "files";
 
 	public static void main(String[] args){
 		

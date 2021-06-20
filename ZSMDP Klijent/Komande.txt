@@ -1,9 +1,0 @@
-maven clean package
-maven clean package -Ddocker.skip.build=false
-	docker pull ' '
-
-docker image ls
-
-
-del status:Sarajevo#9996.xml
-del "status:Banja Luka#9999.xml"

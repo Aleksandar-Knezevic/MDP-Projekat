@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Properties;
 import java.util.logging.Level;
 
 import org.unibl.etf.mdp.azsmdp.rmi.AZSRMIinterface;
@@ -21,9 +22,9 @@ public class ReportWindowController {
 	String station;
 	AZSRMIinterface rmiInterface;
 	
-	public static String POLICY_FILE = "policyfile.txt";
-	public static int REGISTRY_NO = 1099;
-	public static String STUB_NAME = "AZS";
+	public static final String POLICY_FILE = "policyfile.txt";
+	public static int REGISTRY_NO;
+	public static final String STUB_NAME = "AZS";
 	
 	
 	@FXML
@@ -86,6 +87,15 @@ public class ReportWindowController {
 	
 	public void init()
 	{
+		try
+		{
+			Properties props = new Properties();
+			props.load(new FileInputStream("config.properties"));
+			REGISTRY_NO =Integer.parseInt(props.getProperty("REGISTRY_NO"));
+		}
+		catch (Exception e) {
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
+		}
 		File file = new File(POLICY_FILE);
 		System.setProperty("java.security.policy", file.getAbsolutePath());
 		if(System.getSecurityManager()==null)

@@ -18,8 +18,8 @@ public class LinijaRedisServis {
 
 	private static JedisPool jedisPool;
 	private static Gson gson;
-	private static String HOST = "localhost";
-	private static int PORT = 6379;
+	private static final String HOST = "localhost";
+	private static final int PORT = 6379;
 	
 	static {
 		jedisPool = new JedisPool(HOST, PORT);

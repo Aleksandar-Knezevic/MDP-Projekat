@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.logging.Level;
 
 import org.jasypt.util.binary.BasicBinaryEncryptor;
@@ -38,7 +39,7 @@ public class MainWindowController{
 	public String grad;
 	public HashMap<String, Integer> locationPortMapping;
 	public String korisnik;
-	public static String HOST_ADDR = "127.0.0.1";
+	public static String HOST_ADDR;
 
 
 	@FXML
@@ -312,6 +313,15 @@ public class MainWindowController{
 	
 	public void init()
 	{
+		try
+		{
+			Properties props = new Properties();
+			props.load(new FileInputStream("config.properties"));
+			HOST_ADDR = props.getProperty("HOST");
+		}
+		catch (Exception e) {
+			MyLogger.log(Level.WARNING, e.getMessage(), e);
+		}
 		new MessageAcceptThread(this, port);
 		new MulticastMessageAcceptThread(this, grad);
 	}
